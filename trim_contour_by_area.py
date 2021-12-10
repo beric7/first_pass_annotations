@@ -124,11 +124,11 @@ def list_to_contour(list_array):
     
     return contour
 
-def dce(dce_pass, contour_cv2):
+def dce(contour_cv2):
     contour = convert_contour_to_list(contour_cv2)
-    # original_area = GaussArea(contour)
-    condition = True
-    for step in range(dce_pass):
+    original_area = GaussArea(contour)
+    #condition = True
+    for step in range(1):
         numLoops = math.floor(len(contour)/2)
         if numLoops >= 2:
             for idx in range(numLoops):
