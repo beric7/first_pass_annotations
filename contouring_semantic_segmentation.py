@@ -9,6 +9,7 @@ import cv2
 import numpy as np
 import torch
 import os
+from trim_contour_by_area import dce_area
 from trim_contour import dce
 
 def un_pad_contour(contour):
@@ -45,7 +46,7 @@ def isolate_color(mask, class_coloring):
 
     return bin_img
 
-def contour_class(dce_pass, ohev_file_name, image_file_name, destination, image_name, class_coloring, class_name):
+def contour_class(dce_pass, ohev_file_name, image_file_name, destination, image_name, class_coloring, class_name, area):
     
     if not os.path.exists(destination): # if it doesn't exist already
         os.makedirs(destination)
@@ -93,7 +94,10 @@ def contour_class(dce_pass, ohev_file_name, image_file_name, destination, image_
             new_contour_path_ = un_pad_contour(new_contour_path_)
             
             if len(new_contour_path_) > 2:
-                trimmed_contour = dce(dce_pass, new_contour_path_)
+                if area:
+                    trimmed_contour = dce_area(dce_pass, new_contour_path_)
+                else:
+                    trimmed_contour = dce(dce_pass, new_contour_path_)
                 complete_contours.append(trimmed_contour)
              
         img_unpadded = original_color_image[5:(original_color_image.shape[0]-5),5:(original_color_image.shape[1]-5)]

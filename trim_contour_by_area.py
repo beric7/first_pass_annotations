@@ -124,17 +124,23 @@ def list_to_contour(list_array):
     
     return contour
 
-def dce(contour_cv2):
+def dce_area(dce_pass, contour_cv2):
     contour = convert_contour_to_list(contour_cv2)
     original_area = GaussArea(contour)
     #condition = True
-    for step in range(1):
+    for step in range(dce_pass):
         numLoops = math.floor(len(contour)/2)
         if numLoops >= 2:
             for idx in range(numLoops):
                 contour_temp = contour
-                # print("contour temp: ", GaussArea(contour_temp))
+                # print("Original area: ", original_area)
                 contour = onePassDCE(contour)
-                # print(GaussArea(contour))
+                new_area = GaussArea(contour)
+                # print("New area: ", new_area)
+                percent_change = (original_area - new_area) / (original_area)
+                if percent_change > 0.1:
+                    contour = contour_temp
+                    # print("too much change!")
+                    break
         # print("STEP "+str(step)+":", numLoops, len(contour), GaussArea(contour))
     return list_to_contour(contour)

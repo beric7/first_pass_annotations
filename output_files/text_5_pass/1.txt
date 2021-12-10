@@ -1,0 +1,16 @@
+version:4.5.6
+shapes:
+label:fair
+points:[0,6][62,60][2,78][112,62][106,48][145,0]
+group_id:null
+shape_type:polygon
+flags:{}
+label:poor
+points:[0,85][1,129][76,167][144,131][117,109][117,99][66,110]
+group_id:null
+shape_type:polygon
+flags:{}
+imagePath:1.jpeg
+imageData:null
+imageHeight:512
+imageWidth:512
