@@ -89,5 +89,5 @@ University Libraries, Virginia Tech. Software. https://doi.org/10.7294/16628620.
 
 Paper:
 ```
-Bianchi, Eric; Hebdon, Matthew (2021): Editing Semantic Model Predictions for Extending Datasets. University Libraries, Virginia Tech.
+Bianchi, Eric; A. Lynn, Abbott (2021): Editing Semantic Model Predictions for Extending Datasets. University Libraries, Virginia Tech.
 ```
