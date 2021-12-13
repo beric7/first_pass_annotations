@@ -1,8 +1,8 @@
 # first_pass_annotations
-first pass annotations for existing models
+First pass annotations for existing models
 
 <p align="center">
-    <img src="/figures/corr_pred.jpg" | width=800 />
+    <img src="/figures/Model_to_Edit_Annotation.png" | width=800 />
 </p>
 
 The four semantic classes in the sample images are:
@@ -12,8 +12,7 @@ Fair
 Poor
 Severe
 ```
-***Coming soon in November***
-:red_circle:\[[Paper](/access/not_ready.png)\] :green_circle:\[[Dataset](https://doi.org/10.7294/16624663.v1)\] :green_circle:\[[Trained models](https://doi.org/10.7294/16628620.v1)\]
+:red_circle:\[[Paper](/Annotation Study - Bianchi.pdf)\] :green_circle:\[[Sample Dataset](https://doi.org/10.7294/16624663.v1)\] :green_circle:\[[Corresponding Sample Trained models](https://doi.org/10.7294/16628620.v1)\]
 
 The corrosion condition state segmentation dataset which can be used for the localization of structural damage, and for more futuristic style transfer [SPADE](https://arxiv.org/abs/1903.07291) and [GAN](https://arxiv.org/abs/1912.04958) / [GAN-Inversion](https://arxiv.org/abs/2101.05278) applications. 
 
