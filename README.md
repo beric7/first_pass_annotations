@@ -6,13 +6,6 @@ First pass annotations for existing models.
 </p>
 The first pass annotations begin with a trained model. The model may make its semantic segmentation predictions in the form of one-hot encoded vectors or the RGB masks etc. These prediction mask files can be used to generate a text file of class contours. The contour file vertices may be reduced using the discrete curve evolution algorithm to compress the file size and make future annotation edits more workable. Finally the text file may be converted into any file format which is supported by your editor of choice. We have provided a single final format using the open-source [labelme 2016](https://github.com/wkentaro/labelme) JSON format.  
 
-The four semantic classes in the sample images in this respository are:
-```
-Good (Background)
-Fair
-Poor
-Severe
-```
 
 These classes make up the four corrosion condition state categories that bridge inspectors must rate the damage extent for each structural bridge detail. These classes can obviously be tailored to any number of classes or specific target dataset or model. 
 
@@ -42,6 +35,15 @@ The most important environment configurations are the following:
 - Pillow
 - pandas
 - shutil
+
+
+The four semantic classes in the sample images in this respository are:
+```
+Good (Background)
+Fair
+Poor
+Severe
+```
 
 ## Evaluating the Trained DeeplabV3+ Model
 - Download the DeeplabV3+ :green_circle:[trained model weights](https://doi.org/10.7294/16628620.v1)
