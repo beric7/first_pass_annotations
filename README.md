@@ -4,12 +4,12 @@ First pass annotations for existing models.
 <p align="center">
     <img src="/figures/Model_to_Edit_Annotation.png" | width=800 />
 </p>
-The first pass annotations begin with a trained model. The model may make its semantic segmentation predictions in the form of one-hot encoded vectors or the RGB masks etc. These prediction mask files can be used to generate a text file of class contours. The contour file vertices may be reduced using the discrete curve evolution algorithm to compress the file size and make future annotation edits more workable. Finally the text file may be converted into any file format which is supported by your editor of choice. We have provided a single final format using the open-source [labelme 2016](https://github.com/wkentaro/labelme) JSON format.  
+The first pass annotations begin with a trained model. The model may make its semantic segmentation predictions in the form of one-hot encoded vectors or the RGB masks etc. These prediction mask files can be used to generate a text file of class contours. The contour file vertices may be reduced using the discrete curve evolution algorithm to compress the file size and make future annotation edits more workable. Finally the text file may be converted into any file format which is supported by your editor of choice. We have provided a single final format using the open-source \[[labelme2016](https://github.com/wkentaro/labelme/)] JSON format.  
 
 
 These classes make up the four corrosion condition state categories that bridge inspectors must rate the damage extent for each structural bridge detail. These classes can obviously be tailored to any number of classes or specific target dataset or model. 
 
-:green_circle:\[[Paper](Annotation Study - Bianchi.pdf)\] :green_circle:\[[Sample Dataset](https://doi.org/10.7294/16624663.v1)\] :green_circle:\[[Corresponding Sample Trained models](https://doi.org/10.7294/16628620.v1)\]
+:green_circle:\[[Paper](https://github.com/beric7/first_pass_annotations/blob/main/Annotation%20Study%20-%20Bianchi.pdf)\] :green_circle:\[[Sample Dataset](https://doi.org/10.7294/16624663.v1)\] :green_circle:\[[Corresponding Sample Trained models](https://doi.org/10.7294/16628620.v1)\]
 
 The dataset link provided in this repository is the corrosion condition state segmentation dataset. This dataset can be used for the localization of structural damage, and for more futuristic style transfer [SPADE](https://arxiv.org/abs/1903.07291) and [GAN](https://arxiv.org/abs/1912.04958) / [GAN-Inversion](https://arxiv.org/abs/2101.05278) applications. 
 
