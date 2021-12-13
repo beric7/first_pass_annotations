@@ -30,7 +30,13 @@ def mask_to_ohev(input_mask_path, mask_name, ohev_dest):
     _, channels, height, width = input_shape.shape
     input_mask = torch.empty(height, width, dtype=torch.long)
     
-    
+    # color mapping corresponding to classes
+    # ---------------------------------------------------------------------
+    # 0 = Good (Black)
+    # 1 = Fair (Red)
+    # 2 = Poor (Green)
+    # 3 = Severe (Yellow)
+    # ---------------------------------------------------------------------
     mapping = {(0,0,0): 0, (0,0,128): 1, (0,128,0): 2, (0,128,128): 3}
     input = torch.from_numpy(input_mask_processed)
         
