@@ -125,6 +125,8 @@ AREA = True
 # TOO MUCH (if the original area changes by 5%).
 dce_pass = 3
 ```
+**Step 3:** Run ***run_contour_semantic_segmentation.py***.
+
 ## Citation
 Corrosion Condition State Dataset: 
 ```
