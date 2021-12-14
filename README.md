@@ -120,7 +120,7 @@ json_dest = './output_files/json_3_pass/'
 ```
 AREA = True
 
-# NUMBER OF DCE PASSES, WE RECCOMEND (3) IF NOT MORE...
+# NUMBER OF DCE PASSES, WE RECOMMEND (3) IF NOT MORE...
 # EACH DCE PASS REDUCES THE NUMBER OF POINTS BY 1/2, UNLESS THE AREA CHANGES
 # TOO MUCH (if the original area changes by 5%).
 dce_pass = 3
