@@ -105,7 +105,7 @@ mapping = {0:np.array([0,0,0], dtype=np.uint8), 1:np.array([0,0,128], dtype=np.u
 ```
 **Step 4:** Run ***run_show_results_ohev.py***
 
-## Editable Predictions
+## Generate Editable Predictions
 At this point you should have your predictions in the one-hot-encoded-vector format. We are now ready to contour them and convert them into an editable format. As stated before, we will convert the predictions into a JSON format compatible with [labelme](https://github.com/wkentaro/labelme). We do also convert the predictions into a text file format so that you can generate them into a different file format which may suit the needs of your target editor. You should be in the first_pass_annotations folder and open ***run_contour_semantic_segmentation.py*** file. 
 
 **Step 1:** Determine file paths
@@ -126,6 +126,9 @@ AREA = True
 dce_pass = 3
 ```
 **Step 3:** Run ***run_contour_semantic_segmentation.py***.
+
+## Editing Files in Labelme
+At this point you have JSON files which are now compatible with the lableme software, and can be opened up inside of labelme to be edited. To do this you will first need to download labelme. Then copy the JSON files and image files into a joint folder. The JSON files should be named the same as the image files, just with different extensions. Open the joint JSON and image file inside of labelme to view and edit the files. We have put together a tutorial on tips and tricks on how to use the labelme software in this [youtube video](https://www.youtube.com/watch?v=XtYUPe_JfRw). We also made a [video on youtube](https://www.youtube.com/watch?v=Zd4YmSMLYFQ) showing how to set up labelme with Anaconda prompt.
 
 ## Citation
 Corrosion Condition State Dataset: 
