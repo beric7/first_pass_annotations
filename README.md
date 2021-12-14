@@ -48,6 +48,20 @@ Severe
 These classes make up the four corrosion condition state categories that bridge inspectors must rate the damage extent for each structural bridge detail. These classes can obviously be tailored to any number of classes or specific target dataset or model. 
 
 ## Pre-processing
+In case you only have a model's color mask prediction images (RGB), we wrote a script to convert those images into one-hot-encoded-vectors (ohev). This option is good if you do not want to write code for a model which is not compatible with the our script ***run_show_results_ohev.py***, in the validation folder. The ohevs are our choice for the input into our contouring algorithm, and are great if you need to resize the prediction data. 
+
+**Step 1:** In the file ***run_mask_to_ohev.py***, define the mask directory and where you would like to store the resulting one-hot-encoded-vector files (ohev). 
+
+```
+mask_dir = './sample_data/masks/'
+ohev_dest = './ohev/'
+```
+
+**Step 2:** In the file ***mask_to_ohev.py***, define the colors to correspond to the class numbers in the ohev file. In this case we only have four classes 0-3, but you may have more or less depending on your model. Unfortunately this method requires you to know the exact RGB value of the prediction mask, however, finding these values are not to hard to do on your own, and they are often listed with off the shelf models or datasets. 
+
+<p align="left">
+    <img src="/figures/CorrespondingClassColors.png"  | width=400/>
+</p>
 
 ```
 # color mapping corresponding to classes
@@ -57,23 +71,60 @@ These classes make up the four corrosion condition state categories that bridge 
 # 2 = Poor (Green)
 # 3 = Severe (Yellow)
 # ---------------------------------------------------------------------
-self.mapping = {(0,0,0): 0, (0,0,128): 1, (0,128,0): 2, (0,128,128): 3}
+mapping = {(0,0,0): 0, (0,0,128): 1, (0,128,0): 2, (0,128,128): 3}
 ```
+**Step 3:** Run the ***run_mask_to_ohev.py***
 
-## Building a Custom Dataset
-(The images in the dataset were annotated using [labelme](https://github.com/wkentaro/labelme). We suggest that you use this tool)
+## Generating Masks with a Pre-trained Model
+If you do not have the RGB value masks or the one-hot-encoded-vector files, do not worry, we wrote a script for that too. If you have a pytorch model, than you are more than likely able to generate the one-hot-encoded-vectors (ohevs) using our code. Open up ***run_show_results_ohev.py*** in the validation folder. Then follow the steps listed below. 
 
+**Step 1:** Find the path to the stored weights of your model. If you want to test a model you can download the corrosion condition state model at \[[Corresponding Sample Trained models](https://doi.org/10.7294/16628620.v1)\]
+```
+model = torch.load(f'./PATH TO STORED MODEL WEIGHTS.pt', map_location=torch.device('cuda'))
+```
+**Step 2:** Input the: image directory, destination for the prediction masks, destination for the mask and image overlays, and the destination for the one-hot-encoded-vector prediction files. As a note, the model will make predictions on the image directory that you give it. 
+```
+source_image_dir = './PATH TO SOURCE IMAGES/'
+destination_mask = './DESTINATION MASK FOLDER/'
+destination_overlays = './DESTINATION OVERLAY FOLDER/'
+destination_ohev = './DESTINATION OHEV FOLDER/'
+```
+**Step 3:** Alter the color mapping values in the file ***show_results_ohev.py***. 
+```
+# color mapping corresponding to classes:
+# ---------------------------------------------------------------------
+# 'one_hot_number' = 'class_name', (RGB), (BGR)
+# 0 = background (good), (0,0,0), (0,0,0)
+# 1 = fair, (128,0,0), (0,0,128)
+# 2 = poor, (0,128,0), (0,128,0)
+# 3 = severe, (128,128,0), (0,128,128)
+# ---------------------------------------------------------------------
 
-1. Before beginning to annotate, we suggest that you use jpeg for the RGB image files. We advised against beginning with images which are already resized. 
+mapping = {0:np.array([0,0,0], dtype=np.uint8), 1:np.array([0,0,128], dtype=np.uint8),
+           2:np.array([0,128,0], dtype=np.uint8), 3:np.array([0,128,128], dtype=np.uint8)}  
+```
+**Step 4:** Run ***run_show_results_ohev.py***
 
-2. We have put together a tutorial on tips and tricks on how to use the labelme software in this [youtube video](https://www.youtube.com/watch?v=XtYUPe_JfRw). We also made a [video on youtube](https://www.youtube.com/watch?v=Zd4YmSMLYFQ) showing how to set up labelme with Anaconda prompt.
+## Editable Predictions
+At this point you should have your predictions in the one-hot-encoded-vector format. We are now ready to contour them and convert them into an editable format. As stated before, we will convert the predictions into a JSON format compatible with [labelme](https://github.com/wkentaro/labelme). We do also convert the predictions into a text file format so that you can generate them into a different file format which may suit the needs of your target editor. You should be in the first_pass_annotations folder and open ***run_contour_semantic_segmentation.py*** file. 
 
-3. After annotating you will have matching JSON and jpeg files, indicating the annotation and image pair respectfully. 
+**Step 1:** Determine file paths
+```
+ohev_directory = './sample_data/ohev/'
+image_dir = './sample_data/Masks/'
+destination = './output_files/contours_3_pass/'
+text_dest = './output_files/text_3_pass/'
+json_dest = './output_files/json_3_pass/'
+```
+**Step 2:** The ***dce_pass*** variable controls the number of DCE passes to run on the contours. We suggest doing three passes. Optionally, set the boolean ***AREA*** to True if you wish to hault the DCE passes early if the area of the original area changes too much. This option is great if you do not want to blindy remove contours. When this option ***AREA*** is set to TRUE then you can set the number of DCE passes very high since it will stop before removing too much information.  
+```
+AREA = True
 
-4. You will take these files and generate masks and one-hot-encoded vector files using ***run_labelme2voc_.py*** file in Pre-processing. Then you can re-scale these images and masks using the respective files in Pre-processing. You can also use the random sort function we have created to randomly split the data. 
-
-The ***labels_corrosion_segmentation.txt*** file contains the class labels needed for the ***run_labelme2voc_.py*** function. If your classes are different then they need to be reflected in this particular file.
-
+# NUMBER OF DCE PASSES, WE RECCOMEND (3) IF NOT MORE...
+# EACH DCE PASS REDUCES THE NUMBER OF POINTS BY 1/2, UNLESS THE AREA CHANGES
+# TOO MUCH (if the original area changes by 5%).
+dce_pass = 3
+```
 ## Citation
 Corrosion Condition State Dataset: 
 ```
